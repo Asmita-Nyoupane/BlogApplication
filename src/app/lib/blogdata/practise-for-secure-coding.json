@@ -1,0 +1,6 @@
+{
+  "title": "Best Practices for Secure Coding: Keeping Your Applications Safe from Vulnerabilities",
+  "description": "This blog post could discuss best practices for writing secure code to protect against common vulnerabilities such as SQL injection, cross-site scripting (XSS), and buffer overflows. It could cover topics such as input validation, proper authentication and authorization mechanisms, and using secure coding frameworks and libraries.",
+  "author": "Asmita",
+  "slug": "practise-for-secure-coding"
+}

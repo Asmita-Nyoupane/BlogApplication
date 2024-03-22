@@ -1,95 +1,58 @@
-import Image from "next/image";
 import styles from "./page.module.css";
-
-export default function Home() {
+import Link from "next/link";
+import getblogs from "../../services/getblogs";
+export default async function Home() {
+  const allblogs = getblogs();
+  const blogs = await allblogs;
+  const firstThreeBlogs = blogs.slice(0, 3);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <main className={styles.main}>
+        {/* <div className={styles.description}>NewEra- Blog to empower</div> */}
+        <img
+          src="/home.png"
+          className="img-fluid rounded-2"
+          alt="home-image"
+          height="50%"
+          width="50%"
+        ></img>
+        <div className={styles.centered}>
+          <h1>NewEra</h1>
+          <p> Explore,Learn and Grow</p>
+          <Link href="/blog">
+            <button type="button" className="btn btn-light mx-5">
+              Explore
+            </button>
+          </Link>
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <h1 className="mt-3 center "> Top Popular Blogs</h1>
+        <div className="accordion accordion-flush" id="accordionFlushExample">
+          {firstThreeBlogs.map((blog, index) => (
+            <div className="accordion-item" key={index}>
+              <h2 className="accordion-header">
+                <button
+                  className="accordion-button collapsed h1"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={`#flush-collapse-${index}`}
+                  aria-expanded="false"
+                  aria-controls={`flush-collapse-${index}`}
+                >
+                  {blog.title}
+                </button>
+              </h2>
+              <div
+                id={`flush-collapse-${index}`}
+                className="accordion-collapse collapse"
+                data-bs-parent="#accordionFlushExample"
+              >
+                <div className="accordion-body">{blog.description}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+    </>
   );
 }
